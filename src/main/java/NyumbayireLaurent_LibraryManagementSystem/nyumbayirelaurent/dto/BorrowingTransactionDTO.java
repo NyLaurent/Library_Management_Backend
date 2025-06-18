@@ -2,7 +2,7 @@ package NyumbayireLaurent_LibraryManagementSystem.nyumbayirelaurent.dto;
 
 public class BorrowingTransactionDTO {
     private Long id;
-    private Long bookId;
+    private String bookIsbn;
     private String bookTitle;
     private String borrowerName;
     private String borrowDate;
@@ -18,12 +18,12 @@ public class BorrowingTransactionDTO {
         this.id = id;
     }
 
-    public Long getBookId() {
-        return bookId;
+    public String getBookIsbn() {
+        return bookIsbn;
     }
 
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
+    public void setBookIsbn(String bookIsbn) {
+        this.bookIsbn = bookIsbn;
     }
 
     public String getBookTitle() {

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Map;
 
 @RestController
@@ -43,7 +44,7 @@ public class LibraryController {
         LocalDateTime borrowDate;
         try {
             if (dateStr.length() == 10) { // YYYY-MM-DD
-                borrowDate = LocalDateTime.parse(dateStr + "T00:00:00");
+                borrowDate = LocalDate.parse(dateStr).atStartOfDay();
             } else {
                 borrowDate = LocalDateTime.parse(dateStr);
             }

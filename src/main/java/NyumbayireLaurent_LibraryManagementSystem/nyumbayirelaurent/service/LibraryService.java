@@ -122,7 +122,7 @@ public class LibraryService {
     private BorrowingTransactionDTO toBorrowingTransactionDTO(BorrowingTransaction transaction) {
         BorrowingTransactionDTO dto = new BorrowingTransactionDTO();
         dto.setId(transaction.getId());
-        dto.setBookId(transaction.getBook().getId());
+        dto.setBookIsbn(transaction.getBook().getIsbn());
         dto.setBookTitle(transaction.getBook().getTitle());
         dto.setBorrowerName(transaction.getBorrowerName());
         dto.setBorrowDate(transaction.getBorrowDate() != null ? transaction.getBorrowDate().toString() : null);
