@@ -24,6 +24,9 @@ public class LibraryService {
     private BorrowingTransactionRepository transactionRepository;
 
     public BookDTO createBook(String title, String author, String isbn, Book.AvailabilityStatus status) {
+        if (bookRepository.findByIsbn(isbn).isPresent()) {
+            throw new BadRequestException("A book with ISBN '" + isbn + "' already exists.");
+        }
         Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
@@ -46,7 +49,8 @@ public class LibraryService {
     }
 
     @Transactional
-    public BorrowingTransactionDTO createBorrowingTransaction(String isbn, String borrowerName, LocalDateTime borrowDate) {
+    public BorrowingTransactionDTO createBorrowingTransaction(String isbn, String borrowerName,
+            LocalDateTime borrowDate) {
         Book book = bookRepository.findByIsbn(isbn)
                 .orElseThrow(() -> new ResourceNotFoundException("Book not found with ISBN: " + isbn));
         if (book.getAvailabilityStatus() != Book.AvailabilityStatus.AVAILABLE) {
