@@ -27,6 +27,9 @@ public class LibraryService {
         if (bookRepository.findByIsbn(isbn).isPresent()) {
             throw new BadRequestException("A book with ISBN '" + isbn + "' already exists.");
         }
+        if (bookRepository.findByTitle(title).isPresent()) {
+            throw new BadRequestException("A book with title '" + title + "' already exists.");
+        }
         Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
