@@ -1,0 +1,7 @@
+package NyumbayireLaurent_LibraryManagementSystem.nyumbayirelaurent.repository;
+
+import NyumbayireLaurent_LibraryManagementSystem.nyumbayirelaurent.entity.BorrowingTransaction;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface BorrowingTransactionRepository extends JpaRepository<BorrowingTransaction, Long> {
+} 
