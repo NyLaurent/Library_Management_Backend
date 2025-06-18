@@ -49,12 +49,27 @@ public class LibraryController {
                 borrowDate = LocalDateTime.parse(dateStr);
             }
         } catch (Exception e) {
-            throw new BadRequestException("Invalid date format. Use YYYY-MM-DD or YYYY-MM-DDTHH:mm:ss");
+            throw new BadRequestException("Invalid borrowDate format. Use YYYY-MM-DD or YYYY-MM-DDTHH:mm:ss");
+        }
+        // Handle optional returnDate
+        LocalDateTime returnDate = null;
+        String returnDateStr = body.get("returnDate");
+        if (returnDateStr != null && !returnDateStr.isBlank()) {
+            try {
+                if (returnDateStr.length() == 10) {
+                    returnDate = LocalDate.parse(returnDateStr).atStartOfDay();
+                } else {
+                    returnDate = LocalDateTime.parse(returnDateStr);
+                }
+            } catch (Exception e) {
+                throw new BadRequestException("Invalid returnDate format. Use YYYY-MM-DD or YYYY-MM-DDTHH:mm:ss");
+            }
         }
         BorrowingTransactionDTO transaction = libraryService.createBorrowingTransaction(
                 body.get("isbn"),
                 body.get("borrowerName"),
-                borrowDate);
+                borrowDate,
+                returnDate);
         return ResponseEntity.ok(transaction);
     }
 

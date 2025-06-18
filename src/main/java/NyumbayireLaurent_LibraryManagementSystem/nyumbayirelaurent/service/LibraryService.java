@@ -53,7 +53,7 @@ public class LibraryService {
 
     @Transactional
     public BorrowingTransactionDTO createBorrowingTransaction(String isbn, String borrowerName,
-            LocalDateTime borrowDate) {
+            LocalDateTime borrowDate, LocalDateTime returnDate) {
         Book book = bookRepository.findByIsbn(isbn)
                 .orElseThrow(() -> new ResourceNotFoundException("Book not found with ISBN: " + isbn));
         if (book.getAvailabilityStatus() != Book.AvailabilityStatus.AVAILABLE) {
@@ -66,6 +66,7 @@ public class LibraryService {
         transaction.setBook(book);
         transaction.setBorrowerName(borrowerName);
         transaction.setBorrowDate(borrowDate);
+        transaction.setReturnDate(returnDate);
         transaction.setStatus(BorrowingTransaction.Status.PENDING);
         BorrowingTransaction saved = transactionRepository.save(transaction);
         return toBorrowingTransactionDTO(saved);
